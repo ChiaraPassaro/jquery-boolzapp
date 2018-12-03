@@ -4,10 +4,18 @@
   box-sizing: border-box;
 }
 
+/*Colors*/
+.grey {
+  color: #818181;
+}
+
+
 body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  font-size: 15px;
+  font-family: "Helvetica Neue", "Helvetica", "Lucida Grande", Arial, "Ubuntu", "Cantarell", "Fira Sans", sans-serif;
 }
 
 .outer-wrapper{
@@ -24,6 +32,7 @@ body {
 
 .wrapper{
   width:90%;
+  min-width: 780px;
   height: 100%;
   margin: 0 auto;
   background: #F7F9FA;
@@ -52,12 +61,17 @@ body {
   height: 65px;
   background: #EEEEEE;
   padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.header .avatar{
+  flex-shrink: 0;
 }
 
 .avatar{
   width: 45px;
   height: 45px;
-  float: left;
   border-radius: 100%;
   overflow: hidden;
 }
@@ -65,18 +79,32 @@ body {
   width: 100%;
 }
 
+.header__info{
+  margin-left: 10px;
+}
+.header__info span{
+  display: block;
+}
+.header__info-name{
+  font-size: 130%;
+}
+.header__info-status{
+  font-size: 90%;
+}
+
 .header-buttons{
-  float: right;
   width: calc(100% - 45px);
   height: 65px;
-  line-height: 65px;
   text-align: right;
 }
 .header-buttons__list{
   list-style: none;
-  line-height: 65px;
 }
 .header-buttons__item{
   display: inline-block;
+  line-height: 65px;
   margin: 0 10px;
+}
+.header-buttons__item img{
+  vertical-align: middle;
 }
