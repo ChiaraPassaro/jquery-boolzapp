@@ -108,3 +108,43 @@ body {
 .header-buttons__item img{
   vertical-align: middle;
 }
+
+.search-box{
+  width: 100%;
+  background: #FBFBFB;
+  padding: 5px 10px;
+  position: relative;
+}
+.search-box::after{
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.search-box__wrapper{
+  width: calc(100% - 20px);
+  height: 30px;
+  line-height: 20px;
+  margin: 5px 10px;
+  padding: 5px;
+  background: #FFF;
+  border: 1px solid #EEEEEE;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+}
+.search-box__icon{
+  width: 50px;
+}
+.search-box__icon img{
+  vertical-align: middle;
+  height: 20PX;
+}
+.search-box__input{
+  width: calc(100% - 50px);
+}
+.search-box__input input{
+  border: 0;
+  width: 100%;
+  font-size: 100%;
+}
