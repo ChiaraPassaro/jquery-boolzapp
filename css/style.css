@@ -44,10 +44,39 @@ body {
   background: url('../img/background-chat.png');
   background-repeat: repeat;
   background-size: contain;
+  border-left: 1px solid #DEDEDE;
 }
 
 .header{
   width: 100%;
-  height: 70px;
-  background: #e2ded7;
+  height: 65px;
+  background: #EEEEEE;
+  padding: 10px;
+}
+
+.avatar{
+  width: 45px;
+  height: 45px;
+  float: left;
+  border-radius: 100%;
+  overflow: hidden;
+}
+.avatar__img{
+  width: 100%;
+}
+
+.header-buttons{
+  float: right;
+  width: calc(100% - 45px);
+  height: 65px;
+  line-height: 65px;
+  text-align: right;
+}
+.header-buttons__list{
+  list-style: none;
+  line-height: 65px;
+}
+.header-buttons__item{
+  display: inline-block;
+  margin: 0 10px;
 }
