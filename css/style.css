@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.outer-wrapper{
+  height: 100%;
+  padding: 20px;
+  background-image:
+  linear-gradient(to bottom,
+    #009688 0px,
+    #009688 130px,
+    #dddbd1 101px,
+    #d2dbdc 100%
+  );
+}
+
+.wrapper{
+  width:90%;
+  height: 100%;
+  margin: 0 auto;
+  background: #F7F9FA;
+  filter: drop-shadow(1px 1px 4px rgba(0,0,0,0.5));
+}
