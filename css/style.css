@@ -173,6 +173,10 @@ body {
     padding: 10px;
     cursor: pointer;
   }
+  .chat-list__item.hidden{
+    display: none;
+  }
+
   .chat-list__item.active{
     background: #E9EBEB;
   }
