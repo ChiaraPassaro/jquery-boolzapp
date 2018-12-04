@@ -231,7 +231,7 @@ body {
   .chat-list__item:hover img,
   .chat-list__item:active img,
   .chat-list__item:focus img{
-    display: inline-block;   
+    display: inline-block;
   }
   /* Main Content */
   .main__content{
@@ -322,7 +322,12 @@ body {
     height: 15px;
   }
 
-  .chat-bar{
+  .template-message{
+    display: none;
+  }
+
+/* Chat Bar   */
+.chat-bar{
     width: 100%;
     height: 60px;
     display: flex;
