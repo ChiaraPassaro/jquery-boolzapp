@@ -221,7 +221,9 @@ body {
   }
   /* Main Content */
   .main__content{
+    height: calc(100% - 65px);
     padding: 10px 5%;
+    overflow-y: scroll;
   }
   .message{
     position: relative;
