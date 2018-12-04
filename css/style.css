@@ -345,6 +345,9 @@ body {
   .chat-bar__input{
     width: 80%;
   }
+  .chat-bar__input::placeholder{
+    color: #EFEFEF;
+  }
   .chat-bar__input input{
     width: 100%;
     height: 35px;
