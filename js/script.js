@@ -22,6 +22,7 @@ inputChatbar.keyup(function(event){
   }
 });
 
+//Funzione invio messaggio
 function sendMessage(sender){
   var input = $('.chat-bar__input input');
 
@@ -42,7 +43,7 @@ function sendMessage(sender){
   wrapperMessage.append(messageUserTemplate);
   //svuoto input
   input.val('');
-  
+
   if(sender == 'you'){
     console.log(sender);
     sender = 'other';
@@ -69,7 +70,7 @@ function addTime(){
   var hour = time.getHours() + ':' + addZero(time.getMinutes());
   return hour;
 }
-
+//funzione aggiungi zero a numero inferiore di 10
 function addZero(number) {
     if (number < 10) {
         number = "0" + number;
@@ -79,7 +80,6 @@ function addZero(number) {
 
 //Cerco tra i contatti
 var searchInput = $('.search-box__input input');
-//console.log(searchInput);
 
 searchInput.keyup(function(){
   var listContact = $('.chat-list__items li');
