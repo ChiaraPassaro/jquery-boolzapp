@@ -171,9 +171,15 @@ body {
   .chat-list__item{
     height: 60px;
     padding: 10px;
+    cursor: pointer;
   }
   .chat-list__item.active{
     background: #E9EBEB;
+  }
+  .chat-list__item:hover,
+  .chat-list__item:active,
+  .chat-list__item:focus{
+    background: #F4F5F5;
   }
   .chat-list__avatar{
     width: 15%;
@@ -219,9 +225,20 @@ body {
   .chat-list__status img{
     vertical-align: middle;
   }
+  .chat-list__buttons img{
+    display: none;
+  }
+  .chat-list__item:hover img,
+  .chat-list__item:active img,
+  .chat-list__item:focus img{
+    display: inline-block;   
+  }
   /* Main Content */
   .main__content{
     height: calc(100% - 65px);
+  }
+  .main__wrapper-messages{
+    height: calc(100% - 60px);
     padding: 10px 5%;
     overflow-y: scroll;
   }
@@ -303,4 +320,30 @@ body {
   .message__info .status img{
     vertical-align: middle;
     height: 15px;
+  }
+
+  .chat-bar{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    background: #EFEFEF;
+    line-height: 25px;
+  }
+  .chat-bar__emoticon-buttons img,
+  .chat-bar__submit img{
+    vertical-align: middle;
+    height: 25px;
+  }
+  .chat-bar__input{
+    width: 80%;
+  }
+  .chat-bar__input input{
+    width: 100%;
+    height: 35px;
+    padding: 10px;
+    border-radius: 999px;
+    border: 0;
   }
