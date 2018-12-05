@@ -4,26 +4,40 @@ var buttonSubmit = $('.chat-bar__submit-a');
 
 var inputChatbar = $('.chat-bar__input');
 
-var wrapperMessage = $('.main__wrapper-messages');
-
-//se clicco su bottone
-buttonSubmit.click(function(){
-  sendMessage('you');
-  buttonSubmit.children('img').attr('src', 'img/mic.svg');
-});
-
-//se premo invio
-inputChatbar.keyup(function(event){
-  buttonSubmit.children('img').attr('src', 'img/send.svg');
-  if(event.keyCode == 13)
-  {
-    sendMessage('you');
+$(document).ready(function(){
+  var chats = addChats();
+  //se clicco su bottone
+  buttonSubmit.click(function(){
+    var list = chats[0];
+    var idUser = $(list).children('.active').attr('id');
+    console.log(idUser);
+    sendMessage('you', idUser);
     buttonSubmit.children('img').attr('src', 'img/mic.svg');
-  }
+  });
+
+  //se premo invio
+  inputChatbar.keyup(function(event){
+    buttonSubmit.children('img').attr('src', 'img/send.svg');
+    if(event.keyCode == 13)
+    {
+      var list = chats[0];
+      var idUser = $(list).children('.active').attr('id');
+      console.log(idUser);
+      sendMessage('you', idUser);
+      buttonSubmit.children('img').attr('src', 'img/mic.svg');
+    }
+  });
+
 });
+
 
 //Funzione invio messaggio
-function sendMessage(sender){
+function sendMessage(sender, idUser){
+  var sender = sender;
+  var idUser = idUser;
+  console.log('sender ' + sender);
+
+  var wrapperMessage = $('#'+idUser+'-messages');
   var input = $('.chat-bar__input input');
 
   var messageUserTemplate = templateMessage.clone();
@@ -45,9 +59,13 @@ function sendMessage(sender){
   input.val('');
 
   if(sender == 'you'){
-    console.log(sender);
     sender = 'other';
-    var otherMessageTime = setTimeout(sendMessage, 1000);
+    idUser = idUser;
+    console.log('other ' + idUser);
+    var otherMessageTime = setTimeout(sendMessage,1000,sender,idUser);
+      // function(){
+      //   sendMessage(sender, idUser);
+      // }, 1000);
   }
 
 }
@@ -100,7 +118,6 @@ searchInput.keyup(function(){
 
 });
 
-addChats();
 
 function addChats (){
   var mainContent = $('.main__content');
@@ -156,6 +173,7 @@ function addChats (){
             templateItem.find('.chat-list__date').text(time);
           }
         }
+
         //creo i messaggi
         var messageUserTemplate = templateMessage.clone();
 
@@ -181,4 +199,11 @@ function addChats (){
   }
   mainContent.prepend(templateMessages);
   wrapperChatList.append(templateItems);
+
+  //ritorno gli oggetti creati nella pagina
+  var chatlist = wrapperChatList;
+  var messagelist = mainContent.find('.message__wrapper');
+
+  var objects = [chatlist, messagelist];
+  return objects;
 }
