@@ -101,20 +101,27 @@ searchInput.keyup(function(){
 });
 
 addChats();
+
 function addChats (){
+  var mainContent = $('.main__content');
   var wrapperChatList = $('.chat-list__items');
   var templateItems = [];
+  var templateMessages = [];
+
   //per ogni utente nell'array
   for (var i = 0; i < arrayChats.length; i++) {
     var templateItem = $('.chat-list__item').clone();
     var thisElement = arrayChats[i];
-
+    var wrapperMessage = $('.main__wrapper-messages').clone();
 
     //per ogni chiave in questo elemento
     for (var key in thisElement) {
       //id utente
       var idUser = key;
-      console.log(idUser);
+      wrapperMessage.attr('id', idUser + '-messages');
+      console.log(wrapperMessage);
+
+      //console.log(idUser);
 
       templateItem.attr('id', idUser);
 
@@ -141,16 +148,37 @@ function addChats (){
             var time = messages[counter][key2];
             // console.log(time);
           }
+
+
           //metto l'ultimo messaggio in chat-list
           if(counter == messages.length - 1){
             templateItem.find('.chat-list__message').text(text);
             templateItem.find('.chat-list__date').text(time);
           }
         }
+        //creo i messaggi
+        var messageUserTemplate = templateMessage.clone();
+
+        var time = addTime();
+        messageUserTemplate.addClass(from);
+
+
+        messageUserTemplate.find('.message__text').text(text);
+        messageUserTemplate.find('.date').text(time);
+
+        wrapperMessage.append(messageUserTemplate);
         counter++;
       }
+
     }
+    //metto active alla prima
+    if(i == 0){
+      templateItem.addClass('active');
+      wrapperMessage.addClass('active');
+    }
+    templateMessages.push(wrapperMessage);
     templateItems.push(templateItem);
   }
+  mainContent.prepend(templateMessages);
   wrapperChatList.append(templateItems);
 }

@@ -245,6 +245,10 @@ body {
     height: calc(100% - 60px);
     padding: 10px 5%;
     overflow-y: scroll;
+    display: none;
+  }
+  .main__wrapper-messages.active{
+    display: block;
   }
   .message{
     position: relative;
