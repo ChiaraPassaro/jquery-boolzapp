@@ -28,12 +28,12 @@ arrayChats = [
       avatar: 'img/avatar-default.svg',
       messages: [
         {
-          from: 'other',
+          from: 'you',
           text: 'Lorem ipsum dolor sit amet, consectetur',
           time: '14:30'
         },
         {
-          from: 'you',
+          from: 'other',
           text: 'Eco ipsum dolor sit amet, consectetur',
           time: '14:25'
         }
@@ -99,12 +99,12 @@ arrayChats = [
     avatar: 'img/avatar-default.svg',
     messages: [
       {
-        from: 'other',
+        from: 'you',
         text: 'O ipsum dolor sit amet, consectetur',
         time: '14:30'
       },
       {
-        from: 'you',
+        from: 'other',
         text: 'Lorem ipsum dolor sit amet, consectetur',
         time: '14:25'
       }

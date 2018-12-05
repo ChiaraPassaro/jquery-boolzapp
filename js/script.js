@@ -6,9 +6,25 @@ var inputChatbar = $('.chat-bar__input');
 
 $(document).ready(function(){
   var chats = addChats();
+  var list = chats[0];
+  console.log(list);
+  var main = chats[1];
+  console.log(main);
+  var li = $(list).children('li');
+
+  $(li).click(function(){
+    var thisLi = $(this);
+    var id = $(this).attr('id');
+    var idMessageWrapper = '#' + id + '-messages';
+    var thisMessageWrapper = $(main).find(idMessageWrapper);
+    li.removeClass('active');
+    thisLi.addClass('active');
+    main.find('.main__wrapper-messages').removeClass('active');
+    thisMessageWrapper.addClass('active');
+  });
+
   //se clicco su bottone
   buttonSubmit.click(function(){
-    var list = chats[0];
     var idUser = $(list).children('.active').attr('id');
     console.log(idUser);
     sendMessage('you', idUser);
@@ -20,7 +36,6 @@ $(document).ready(function(){
     buttonSubmit.children('img').attr('src', 'img/send.svg');
     if(event.keyCode == 13)
     {
-      var list = chats[0];
       var idUser = $(list).children('.active').attr('id');
       console.log(idUser);
       sendMessage('you', idUser);
@@ -129,14 +144,14 @@ function addChats (){
   for (var i = 0; i < arrayChats.length; i++) {
     var templateItem = $('.chat-list__item').clone();
     var thisElement = arrayChats[i];
-    var wrapperMessage = $('.main__wrapper-messages').clone();
+    var wrapperMessage = $('.main__wrapper-messages').clone().removeClass('template');
 
     //per ogni chiave in questo elemento
     for (var key in thisElement) {
       //id utente
       var idUser = key;
       wrapperMessage.attr('id', idUser + '-messages');
-      console.log(wrapperMessage);
+      //console.log(wrapperMessage);
 
       //console.log(idUser);
 
@@ -203,7 +218,7 @@ function addChats (){
   //ritorno gli oggetti creati nella pagina
   var chatlist = wrapperChatList;
   var messagelist = mainContent.find('.message__wrapper');
-
-  var objects = [chatlist, messagelist];
+  var main = $('.main');
+  var objects = [chatlist, main, messagelist];
   return objects;
 }
