@@ -326,7 +326,8 @@ body {
     height: 15px;
   }
 
-  .template-message{
+  .template-message,
+  .template-chatlist{
     display: none;
   }
 

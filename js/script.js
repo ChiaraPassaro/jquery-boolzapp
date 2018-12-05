@@ -99,3 +99,58 @@ searchInput.keyup(function(){
   });
 
 });
+
+addChats();
+function addChats (){
+  var wrapperChatList = $('.chat-list__items');
+  var templateItems = [];
+  //per ogni utente nell'array
+  for (var i = 0; i < arrayChats.length; i++) {
+    var templateItem = $('.chat-list__item').clone();
+    var thisElement = arrayChats[i];
+
+
+    //per ogni chiave in questo elemento
+    for (var key in thisElement) {
+      //id utente
+      var idUser = key;
+      console.log(idUser);
+
+      templateItem.attr('id', idUser);
+
+      var name = thisElement[idUser].name;
+      templateItem.find('.chat-list__name').text(name);
+
+      var messages = thisElement[idUser].messages;
+
+      //ciclo su tutti i messaggi
+      var counter = 0;
+      while (counter < messages.length){
+        // console.log(messages[counter]);
+        for (var key2 in messages[counter]) {
+          //console.log(key2);
+          if(key2 == 'from'){
+            var from = messages[counter][key2];
+            // console.log(from);
+          }
+          else if(key2 == 'text'){
+            var text = messages[counter][key2];
+            // console.log(text);
+          }
+          else if (key2 == 'time'){
+            var time = messages[counter][key2];
+            // console.log(time);
+          }
+          //metto l'ultimo messaggio in chat-list
+          if(counter == messages.length - 1){
+            templateItem.find('.chat-list__message').text(text);
+            templateItem.find('.chat-list__date').text(time);
+          }
+        }
+        counter++;
+      }
+    }
+    templateItems.push(templateItem);
+  }
+  wrapperChatList.append(templateItems);
+}
