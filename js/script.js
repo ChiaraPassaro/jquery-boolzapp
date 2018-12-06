@@ -252,7 +252,7 @@ function linksMessage(){
     var thisMessageWrapper = $(this).parents('.message__wrapper');
     var thisLinkMenu = templateMessageDropdown.clone();
     var deleteLink = thisLinkMenu.find('.message__delete');
-    console.log(deleteLink);
+
     deleteLink.click(function(){
       thisMessage.remove();
     });
@@ -261,8 +261,10 @@ function linksMessage(){
     var drop =  thisMessage.find('.message__dropdown-menu');
     if(drop.length){
       drop.remove();
+      thisMessage.removeClass('zindex-100');
     }else{
       $('.message__dropdown-menu').remove();
+      thisMessage.addClass('zindex-100');
       thisMessageWrapper.append(thisLinkMenu);
     }
 
