@@ -10,6 +10,12 @@
   clear: both;
 }
 
+.template-message,
+.template-chatlist,
+.template-message__dropdown{
+  display: none;
+}
+
 /*Colors*/
 .grey {
   color: #818181;
@@ -216,6 +222,7 @@ body {
   }
   .chat-list__message-container{
     display: flex;
+    justify-content: space-between;
   }
   .chat-list__message{
     flex-shrink: 1;
@@ -228,6 +235,9 @@ body {
   }
   .chat-list__status img{
     vertical-align: middle;
+  }
+  .chat-list__buttons{
+    text-align: right;
   }
   .chat-list__buttons img{
     display: none;
@@ -252,6 +262,7 @@ body {
   }
   .message{
     position: relative;
+    width: auto;
   }
   .message.you{
     text-align: right;
@@ -305,6 +316,7 @@ body {
     border-radius: 2px;
   }
   .message__wrapper{
+    position: relative;
     display: inline-block;
     width: auto;
     padding: 10px;
@@ -312,8 +324,13 @@ body {
     border-radius: 5px;
     background: #FFF;
     filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.2));
-    position: relative;
     text-align: left;
+    z-index: 1;
+  }
+  .message__wrapper:hover .message__link,
+  .message__wrapper:active .message__link,
+  .message__wrapper:focus .message__link{
+    display: block;
   }
   .message__text{
     width: 90%;
@@ -329,11 +346,42 @@ body {
     vertical-align: middle;
     height: 15px;
   }
-
-  .template-message,
-  .template-chatlist{
+  .message__link{
+    position: absolute;
+    top:5px;
+    right: 5px;
+    z-index: 1;
     display: none;
   }
+  .message__dropdown-menu{
+    position: absolute;
+    top: 20px;
+    right: 0;
+    z-index: 1;
+    background: #FFFFFF;
+    text-align: left;
+  }
+  .message__dropdown-menu ul{
+    list-style: none;
+    width: 100%;
+  }
+  .message__dropdown-menu li{
+    display: block;
+    width: 100%;
+
+  }
+  .message__dropdown-menu li:hover,
+  .message__dropdown-menu li:active,
+  .message__dropdown-menu li:focus{
+    background: #F4F5F5;
+  }
+  .message__dropdown-menu a{
+    display: inline-block;
+    padding: 20px;
+    text-decoration: none;
+    color: #818181;
+  }
+
 
 /* Chat Bar   */
 .chat-bar{

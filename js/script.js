@@ -4,12 +4,12 @@ var buttonSubmit = $('.chat-bar__submit-a');
 
 var inputChatbar = $('.chat-bar__input');
 
+var templateMessageDropdown = $('.template-message__dropdown .message__dropdown-menu');
+
 $(document).ready(function(){
   var chats = addChats();
   var list = chats[0];
-  console.log(list);
   var main = chats[1];
-  console.log(main);
   var li = $(list).children('li');
 
   $(li).click(function(){
@@ -41,6 +41,23 @@ $(document).ready(function(){
       sendMessage('you', idUser);
       buttonSubmit.children('img').attr('src', 'img/mic.svg');
     }
+  });
+
+  //se clicco sui link dei messaggi
+  var linkMessage = $('.message__link');
+
+  linkMessage.click(function(event){
+    event.preventDefault();
+    var thisMessage = $(this).parents('.message');
+    var thisMessageWrapper = $(this).parents('.message__wrapper');
+    console.log(thisMessageWrapper);
+    var thisLinkMenu = templateMessageDropdown.clone();
+    var deleteLink = thisLinkMenu.find('.message__delete');
+    console.log(deleteLink);
+    deleteLink.click(function(){
+      thisMessage.remove();
+    });
+    thisMessageWrapper.append(thisLinkMenu);
   });
 
 });
@@ -191,10 +208,10 @@ function addChats (){
 
         //creo i messaggi
         var messageUserTemplate = templateMessage.clone();
+        var messageDropdown = templateMessageDropdown.clone();
 
         var time = addTime();
         messageUserTemplate.addClass(from);
-
 
         messageUserTemplate.find('.message__text').text(text);
         messageUserTemplate.find('.date').text(time);
