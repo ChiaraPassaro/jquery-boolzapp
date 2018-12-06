@@ -11,9 +11,17 @@ $(document).ready(function(){
   var list = chats[0];
   var main = chats[1];
   var li = $(list).children('li');
+  var avatar = $('.main .header .avatar__img');
+  var name = $('.main .header__info-name');
+  var status = $('.main .header__info-status');
+  console.log(status);
+  var statusArray = ['online', 'offline'];
 
   $(li).click(function(){
     var thisLi = $(this);
+    var thisName = thisLi.find('.chat-list__name').text();
+    var srcAvatar = thisLi.find('.avatar__img').attr('src');
+    console.log(srcAvatar);
     var id = $(this).attr('id');
     var idMessageWrapper = '#' + id + '-messages';
     var thisMessageWrapper = $(main).find(idMessageWrapper);
@@ -21,6 +29,13 @@ $(document).ready(function(){
     thisLi.addClass('active');
     main.find('.main__wrapper-messages').removeClass('active');
     thisMessageWrapper.addClass('active');
+    avatar.attr('src', srcAvatar);
+    name.text(thisName);
+    var numRandom = getRandom(0,1);
+    console.log(numRandom);
+    var thisStatus = statusArray[numRandom];
+    status.text(thisStatus);
+
   });
 
   //se clicco su bottone
