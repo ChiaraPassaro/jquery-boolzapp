@@ -267,6 +267,4 @@ function linksMessage(){
     }
 
   });
-
-  );
 }
