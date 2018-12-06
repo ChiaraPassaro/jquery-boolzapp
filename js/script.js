@@ -43,22 +43,7 @@ $(document).ready(function(){
     }
   });
 
-  //se clicco sui link dei messaggi
-  var linkMessage = $('.message__link');
-
-  linkMessage.click(function(event){
-    event.preventDefault();
-    var thisMessage = $(this).parents('.message');
-    var thisMessageWrapper = $(this).parents('.message__wrapper');
-    console.log(thisMessageWrapper);
-    var thisLinkMenu = templateMessageDropdown.clone();
-    var deleteLink = thisLinkMenu.find('.message__delete');
-    console.log(deleteLink);
-    deleteLink.click(function(){
-      thisMessage.remove();
-    });
-    thisMessageWrapper.append(thisLinkMenu);
-  });
+  linksMessage();
 
 });
 
@@ -89,6 +74,7 @@ function sendMessage(sender, idUser){
   wrapperMessage.append(messageUserTemplate);
   //svuoto input
   input.val('');
+  linksMessage();
 
   if(sender == 'you'){
     sender = 'other';
@@ -238,4 +224,25 @@ function addChats (){
   var main = $('.main');
   var objects = [chatlist, main, messagelist];
   return objects;
+}
+
+//Funzione se clicco sui link dei messaggi
+
+function linksMessage(){
+  var linkMessage = $('.message__link');
+
+  linkMessage.click(function(event){
+    event.preventDefault();
+    var thisMessage = $(this).parents('.message');
+    var thisMessageWrapper = $(this).parents('.message__wrapper');
+    console.log(thisMessageWrapper);
+    var thisLinkMenu = templateMessageDropdown.clone();
+    var deleteLink = thisLinkMenu.find('.message__delete');
+    console.log(deleteLink);
+    deleteLink.click(function(){
+      thisMessage.remove();
+    });
+    thisMessageWrapper.append(thisLinkMenu);
+  });
+
 }
