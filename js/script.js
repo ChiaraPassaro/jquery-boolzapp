@@ -5,7 +5,7 @@ var buttonSubmit = $('.chat-bar__submit-a');
 var inputChatbar = $('.chat-bar__input');
 
 var templateMessageDropdown = $('.template-message__dropdown .message__dropdown-menu');
-
+var numberClick = 0;
 $(document).ready(function(){
   var chats = addChats();
   var list = chats[0];
@@ -14,7 +14,6 @@ $(document).ready(function(){
   var avatar = $('.main .header .avatar__img');
   var name = $('.main .header__info-name');
   var status = $('.main .header__info-status');
-  console.log(status);
   var statusArray = ['online', 'offline'];
 
   $(li).click(function(){
@@ -42,7 +41,7 @@ $(document).ready(function(){
   buttonSubmit.click(function(){
     var idUser = $(list).children('.active').attr('id');
     console.log(idUser);
-    sendMessage('you', idUser);
+    sendMessage('you', idUser, linksMessage);
     buttonSubmit.children('img').attr('src', 'img/mic.svg');
   });
 
@@ -53,20 +52,44 @@ $(document).ready(function(){
     {
       var idUser = $(list).children('.active').attr('id');
       console.log(idUser);
-      sendMessage('you', idUser);
+      sendMessage('you', idUser, linksMessage);
       buttonSubmit.children('img').attr('src', 'img/mic.svg');
     }
   });
 
-  linksMessage();
+
+  //Cerco tra i contatti
+  var searchInput = $('.search-box__input input');
+
+  searchInput.keyup(function(){
+    var listContact = $('.chat-list__items li');
+    var listContactName = $('.chat-list__items li .chat-list__name');
+
+    $(listContact).removeClass('hidden');
+
+    listContactName.each(function(){
+      var liParent = $(this).parents('.chat-list__item');
+      var thisText = $(this).text().toLowerCase();
+      var userText = searchInput.val().toLowerCase();
+
+      console.log(thisText.indexOf(userText));
+      if(thisText.indexOf(userText) == -1){
+        $(liParent).addClass('hidden');
+      }
+    });
+
+  });
+
 
 });
 
 
 //Funzione invio messaggio
-function sendMessage(sender, idUser){
+function sendMessage(sender, idUser, callback){
   var sender = sender;
   var idUser = idUser;
+  console.log('la funzione');
+  console.log(callback);
   console.log('sender ' + sender);
 
   var wrapperMessage = $('#'+idUser+'-messages');
@@ -89,69 +112,26 @@ function sendMessage(sender, idUser){
   wrapperMessage.append(messageUserTemplate);
   //svuoto input
   input.val('');
-  linksMessage();
+
+  if (callback && typeof callback === 'function') {
+    alert('sono una funzione');
+    callback();
+  }
 
   if(sender == 'you'){
     sender = 'other';
     idUser = idUser;
     console.log('other ' + idUser);
-    var otherMessageTime = setTimeout(sendMessage,1000,sender,idUser);
+    var otherMessageTime = setTimeout(sendMessage,1000,sender,idUser, callback);
       // function(){
       //   sendMessage(sender, idUser);
       // }, 1000);
   }
 
+
 }
 
-// function otherMessage(){
-//   var messageOtherTemplate = templateMessage.clone();
-//   var messageOtherValue = 'Ok';
-//
-//   var time = addTime();
-//   messageOtherTemplate.addClass('other');
-//
-//   messageOtherTemplate.find('.message__text').text(messageOtherValue);
-//   messageOtherTemplate.find('.date').text(time);
-//   wrapperMessage.append(messageOtherTemplate);
-// }
-
-//funzione orario
-function addTime(){
-  var time = new Date();
-  var hour = time.getHours() + ':' + addZero(time.getMinutes());
-  return hour;
-}
-//funzione aggiungi zero a numero inferiore di 10
-function addZero(number) {
-    if (number < 10) {
-        number = "0" + number;
-    }
-    return number;
-}
-
-//Cerco tra i contatti
-var searchInput = $('.search-box__input input');
-
-searchInput.keyup(function(){
-  var listContact = $('.chat-list__items li');
-  var listContactName = $('.chat-list__items li .chat-list__name');
-
-  $(listContact).removeClass('hidden');
-
-  listContactName.each(function(){
-    var liParent = $(this).parents('.chat-list__item');
-    var thisText = $(this).text().toLowerCase();
-    var userText = searchInput.val().toLowerCase();
-
-    console.log(thisText.indexOf(userText));
-    if(thisText.indexOf(userText) == -1){
-      $(liParent).addClass('hidden');
-    }
-  });
-
-});
-
-
+//Funzione che aggiunge le chat carcandole da un file js
 function addChats (){
   var mainContent = $('.main__content');
   var wrapperChatList = $('.chat-list__items');
@@ -238,15 +218,19 @@ function addChats (){
   var messagelist = mainContent.find('.message__wrapper');
   var main = $('.main');
   var objects = [chatlist, main, messagelist];
+  linksMessage();
   return objects;
 }
+
 
 //Funzione se clicco sui link dei messaggi
 
 function linksMessage(){
-  var linkMessage = $('.message__link');
+  alert('avvio link');
+  var linkMessage = $('.main__wrapper-messages.active .message__link');
+  console.log(linkMessage);
 
-  linkMessage.click(function(event){
+  linkMessage.off('click').on('click',function(event){ //resetto il click per non duplicarlo
     event.preventDefault();
     var thisMessage = $(this).parents('.message');
     var thisMessageWrapper = $(this).parents('.message__wrapper');
@@ -259,14 +243,21 @@ function linksMessage(){
 
     //controllo se è già stato inserito il menu
     var drop =  thisMessage.find('.message__dropdown-menu');
+
+    console.log('Drop' + drop.length);
     if(drop.length){
+      numberClick ++;
+      console.log(numberClick);
+
       drop.remove();
-      thisMessage.removeClass('zindex-100');
+      $('.message').removeClass('zindex-100');
     }else{
+      numberClick ++;
+      console.log(numberClick);
       $('.message__dropdown-menu').remove();
+      $('.message').removeClass('zindex-100');
       thisMessage.addClass('zindex-100');
       thisMessageWrapper.append(thisLinkMenu);
     }
-
   });
 }
