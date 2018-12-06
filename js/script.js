@@ -5,7 +5,7 @@ var buttonSubmit = $('.chat-bar__submit-a');
 var inputChatbar = $('.chat-bar__input');
 
 var templateMessageDropdown = $('.template-message__dropdown .message__dropdown-menu');
-var numberClick = 0;
+
 $(document).ready(function(){
   var chats = addChats();
   var list = chats[0];
@@ -31,10 +31,10 @@ $(document).ready(function(){
     avatar.attr('src', srcAvatar);
     name.text(thisName);
     var numRandom = getRandom(0,1);
-    console.log(numRandom);
+    //console.log(numRandom);
     var thisStatus = statusArray[numRandom];
     status.text(thisStatus);
-
+    linksMessage();
   });
 
   //se clicco su bottone
@@ -113,8 +113,8 @@ function sendMessage(sender, idUser, callback){
   //svuoto input
   input.val('');
 
+  //se è stata passata una funzione callback la richiamo
   if (callback && typeof callback === 'function') {
-    alert('sono una funzione');
     callback();
   }
 
@@ -226,12 +226,11 @@ function addChats (){
 //Funzione se clicco sui link dei messaggi
 
 function linksMessage(){
-  alert('avvio link');
   var linkMessage = $('.main__wrapper-messages.active .message__link');
-  console.log(linkMessage);
 
   linkMessage.off('click').on('click',function(event){ //resetto il click per non duplicarlo
     event.preventDefault();
+    var thisCaret = $(this);
     var thisMessage = $(this).parents('.message');
     var thisMessageWrapper = $(this).parents('.message__wrapper');
     var thisLinkMenu = templateMessageDropdown.clone();
@@ -244,20 +243,30 @@ function linksMessage(){
     //controllo se è già stato inserito il menu
     var drop =  thisMessage.find('.message__dropdown-menu');
 
-    console.log('Drop' + drop.length);
     if(drop.length){
-      numberClick ++;
-      console.log(numberClick);
-
       drop.remove();
       $('.message').removeClass('zindex-100');
     }else{
-      numberClick ++;
-      console.log(numberClick);
       $('.message__dropdown-menu').remove();
       $('.message').removeClass('zindex-100');
       thisMessage.addClass('zindex-100');
+
+      //non visibile
+      thisLinkMenu.css('opacity', '0');
       thisMessageWrapper.append(thisLinkMenu);
+
+      //calcolo la posizione se left  è un numero negativo lo sposto
+      var linkMenuPosition = thisLinkMenu.position();
+      var caretPosition = thisCaret.position();
+      var thisDropWidth = thisLinkMenu.width();
+
+      if (linkMenuPosition.left < 0 && thisMessage.hasClass('other')){
+        var calcRight = -(thisDropWidth + caretPosition.left);
+        thisLinkMenu.css('right', calcRight);
+      }
+
+      //faccio comparire i link
+      thisLinkMenu.css('opacity', '1');
     }
   });
 }
