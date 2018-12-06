@@ -250,14 +250,23 @@ function linksMessage(){
     event.preventDefault();
     var thisMessage = $(this).parents('.message');
     var thisMessageWrapper = $(this).parents('.message__wrapper');
-    console.log(thisMessageWrapper);
     var thisLinkMenu = templateMessageDropdown.clone();
     var deleteLink = thisLinkMenu.find('.message__delete');
     console.log(deleteLink);
     deleteLink.click(function(){
       thisMessage.remove();
     });
-    thisMessageWrapper.append(thisLinkMenu);
+
+    //controllo se è già stato inserito il menu
+    var drop =  thisMessage.find('.message__dropdown-menu');
+    if(drop.length){
+      drop.remove();
+    }else{
+      $('.message__dropdown-menu').remove();
+      thisMessageWrapper.append(thisLinkMenu);
+    }
+
   });
 
+  );
 }
