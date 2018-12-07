@@ -321,7 +321,6 @@ body {
   }
   .message__wrapper{
     position: relative;
-    z-index: 1;
     display: inline-block;
     width: auto;
     padding: 10px;
@@ -361,7 +360,7 @@ body {
     position: absolute;
     top: 20px;
     right: 0;
-    z-index: 1;
+    z-index: 2;
     background: #FFFFFF;
     text-align: left;
   }

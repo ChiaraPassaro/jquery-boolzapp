@@ -7,20 +7,18 @@ var inputChatbar = $('.chat-bar__input');
 var templateMessageDropdown = $('.template-message__dropdown .message__dropdown-menu');
 
 $(document).ready(function(){
+  //inserisco le chat
   var chats = addChats();
   var list = chats[0];
   var main = chats[1];
   var li = $(list).children('li');
-  var avatar = $('.main .header .avatar__img');
-  var name = $('.main .header__info-name');
-  var status = $('.main .header__info-status');
-  var statusArray = ['online', 'offline'];
+
 
   $(li).click(function(){
     var thisLi = $(this);
     var thisName = thisLi.find('.chat-list__name').text();
     var srcAvatar = thisLi.find('.avatar__img').attr('src');
-    console.log(srcAvatar);
+    //console.log(srcAvatar);
     var id = $(this).attr('id');
     var idMessageWrapper = '#' + id + '-messages';
     var thisMessageWrapper = $(main).find(idMessageWrapper);
@@ -28,12 +26,7 @@ $(document).ready(function(){
     thisLi.addClass('active');
     main.find('.main__wrapper-messages').removeClass('active');
     thisMessageWrapper.addClass('active');
-    avatar.attr('src', srcAvatar);
-    name.text(thisName);
-    var numRandom = getRandom(0,1);
-    //console.log(numRandom);
-    var thisStatus = statusArray[numRandom];
-    status.text(thisStatus);
+    addHeader(thisName, srcAvatar);
     linksMessage();
   });
 
@@ -85,12 +78,15 @@ $(document).ready(function(){
 
 
 //Funzione invio messaggio
-function sendMessage(sender, idUser, callback){
+function sendMessage(sender, idUser, status, callback){
   var sender = sender;
   var idUser = idUser;
-  console.log('la funzione');
-  console.log(callback);
-  console.log('sender ' + sender);
+  var status = status;
+
+  if(status){
+    var wrapperStatus = $('.main .header__info .header__info-status');
+    wrapperStatus.text(status);
+  }
 
   var wrapperMessage = $('#'+idUser+'-messages');
   var input = $('.chat-bar__input input');
@@ -118,14 +114,12 @@ function sendMessage(sender, idUser, callback){
     callback();
   }
 
+  //se il messaggio è inviato dall'utente allora richiama risposta da cpu
   if(sender == 'you'){
     sender = 'other';
     idUser = idUser;
-    console.log('other ' + idUser);
-    var otherMessageTime = setTimeout(sendMessage,1000,sender,idUser, callback);
-      // function(){
-      //   sendMessage(sender, idUser);
-      // }, 1000);
+    status = 'online';
+    var otherMessageTime = setTimeout(sendMessage,1500,sender,idUser,status,callback);
   }
 
 
@@ -149,14 +143,14 @@ function addChats (){
       //id utente
       var idUser = key;
       wrapperMessage.attr('id', idUser + '-messages');
-      //console.log(wrapperMessage);
-
-      //console.log(idUser);
 
       templateItem.attr('id', idUser);
 
       var name = thisElement[idUser].name;
       templateItem.find('.chat-list__name').text(name);
+
+      var avatar = thisElement[idUser].avatar;
+      templateItem.find('.chat-list__avatar img').attr('src', avatar);
 
       var messages = thisElement[idUser].messages;
 
@@ -206,6 +200,8 @@ function addChats (){
     if(i == 0){
       templateItem.addClass('active');
       wrapperMessage.addClass('active');
+      //inserisco dati in header
+      addHeader(name, avatar);
     }
     templateMessages.push(wrapperMessage);
     templateItems.push(templateItem);
@@ -218,6 +214,8 @@ function addChats (){
   var messagelist = mainContent.find('.message__wrapper');
   var main = $('.main');
   var objects = [chatlist, main, messagelist];
+
+  //avvio il click su messaggi
   linksMessage();
   return objects;
 }
@@ -269,4 +267,23 @@ function linksMessage(){
       thisLinkMenu.css('opacity', '1');
     }
   });
+}
+
+//Funzione che aggiunge nome avatar e status nel main
+function addHeader(name, avatar, status){
+  var avatarWrapper = $('.main .header .avatar__img');
+  var nameWrapper = $('.main .header__info-name');
+  var statusWrapper = $('.main .header__info-status');
+  var statusArray = ['online', 'offline'];
+
+  avatarWrapper.attr('src', avatar);
+  nameWrapper.text(name);
+  var numRandom = getRandom(0,1);
+
+  if(!status){
+    //status random
+    var status = statusArray[numRandom];
+  }
+  statusWrapper.text(status);
+
 }

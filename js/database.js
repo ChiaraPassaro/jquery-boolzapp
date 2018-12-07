@@ -2,7 +2,7 @@ arrayChats = [
   {
     c1 : {
       name: 'Paperino',
-      avatar: 'img/avatar-default.svg',
+      avatar: 'img/paperino.png',
       messages: [
         {
           from: 'other',
@@ -25,7 +25,7 @@ arrayChats = [
   {
     c2 : {
       name: 'Pluto',
-      avatar: 'img/avatar-default.svg',
+      avatar: 'img/pluto.jpg',
       messages: [
         {
           from: 'you',
@@ -42,7 +42,7 @@ arrayChats = [
   },
   { c3 : {
     name: 'Qui',
-    avatar: 'img/avatar-default.svg',
+    avatar: 'img/quiquoqua.png',
     messages: [
       {
         from: 'other',
@@ -60,7 +60,7 @@ arrayChats = [
 {
   c4 : {
     name: 'Quo',
-    avatar: 'img/avatar-default.svg',
+    avatar: 'img/quiquoqua.png',
     messages: [
       {
         from: 'other',
@@ -78,7 +78,7 @@ arrayChats = [
 {
   c5 : {
     name: 'Qua',
-    avatar: 'img/avatar-default.svg',
+    avatar: 'img/quiquoqua.png',
     messages: [
       {
         from: 'you',
@@ -96,7 +96,7 @@ arrayChats = [
 {
   c6 : {
     name: 'Clarabella',
-    avatar: 'img/avatar-default.svg',
+    avatar: 'img/clarabella.jpg',
     messages: [
       {
         from: 'you',
@@ -114,7 +114,7 @@ arrayChats = [
 {
   c7 : {
     name: 'MeStessa',
-    avatar: 'img/calef.svg',
+    avatar: 'img/calef.png',
     messages: [
       {
         from: 'other',
