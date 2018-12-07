@@ -6,6 +6,9 @@ var inputChatbar = $('.chat-bar__input');
 
 var templateMessageDropdown = $('.template-message__dropdown .message__dropdown-menu');
 
+var animationMessage = $('.template-dot .message');
+
+
 $(document).ready(function(){
   //inserisco le chat
   var chats = addChats();
@@ -83,6 +86,7 @@ function sendMessage(sender, idUser, callback, status){
   var idUser = idUser;
   var status = status;
 
+
   if(status){
     var wrapperStatus = $('.main .header__info .header__info-status');
     wrapperStatus.text(status);
@@ -105,17 +109,24 @@ function sendMessage(sender, idUser, callback, status){
   messageUserTemplate.find('.message__text').text(messageUserValue);
   messageUserTemplate.find('.date').text(time);
 
+  var iconWriting = $('.writing');
+  if(iconWriting.length){
+    iconWriting.remove();
+  }
   wrapperMessage.append(messageUserTemplate);
-
+  //scroll auto
+  wrapperMessage.scrollTop(wrapperMessage.height());
+  
   //svuoto input
   input.val('');
 
-  console.log('primo controllo');
-  console.log(callback);
+  // console.log('primo controllo');
+  // console.log(callback);
+
   //se è stata passata una funzione callback la richiamo
   if (callback && typeof callback === 'function') {
-    console.log('secondo controllo');
-    console.log(callback);
+    // console.log('secondo controllo');
+    // console.log(callback);
     callback();
   }
 
@@ -130,6 +141,12 @@ function sendMessage(sender, idUser, callback, status){
       var wrapperStatus = $('.main .header__info .header__info-status');
       wrapperStatus.text(status);
       status = 'online';
+      var animation = animationMessage.clone();
+      //console.log(animation);
+      wrapperMessage.append(animation);
+
+      //scroll auto
+      wrapperMessage.scrollTop(wrapperMessage.height());
       var otherMessageTime = setTimeout(sendMessage,3000,sender,idUser,callback, status);
     },2000);
   }

@@ -12,7 +12,8 @@
 
 .template-message,
 .template-chatlist,
-.template-message__dropdown{
+.template-message__dropdown,
+.template-dot{
   display: none;
 }
 
@@ -385,6 +386,45 @@ body {
     color: #818181;
   }
 
+  .message__icon-writing{
+    width: 40px;
+    height: 20px;
+    padding: 3px;
+    background: #E9EBEB;
+    border-radius: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .message__icon-writing .dot{
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    background: #FFF;
+  }
+  .message__icon-writing .dot:first-of-type {
+    opacity: 0;
+    animation: dot 1.3s infinite;
+    animation-delay: 0.0s;
+  }
+  .message__icon-writing .dot:nth-of-type(2) {
+      opacity: 0;
+      animation: dot 1.3s infinite;
+      animation-delay: 0.2s;
+  }
+  .message__icon-writing .dot:last-of-type {
+      opacity: 0;
+      animation: dot 1.3s infinite;
+      animation-delay: 0.3s;
+  }
+  @keyframes dot {
+      0% {
+          opacity: 0;
+      }
+      100% {
+          opacity: 1;
+      }
+  }
 
 /* Chat Bar   */
 .chat-bar{
