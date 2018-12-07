@@ -78,7 +78,7 @@ $(document).ready(function(){
 
 
 //Funzione invio messaggio
-function sendMessage(sender, idUser, status, callback){
+function sendMessage(sender, idUser, callback, status){
   var sender = sender;
   var idUser = idUser;
   var status = status;
@@ -106,11 +106,16 @@ function sendMessage(sender, idUser, status, callback){
   messageUserTemplate.find('.date').text(time);
 
   wrapperMessage.append(messageUserTemplate);
+
   //svuoto input
   input.val('');
 
+  console.log('primo controllo');
+  console.log(callback);
   //se è stata passata una funzione callback la richiamo
   if (callback && typeof callback === 'function') {
+    console.log('secondo controllo');
+    console.log(callback);
     callback();
   }
 
@@ -118,10 +123,16 @@ function sendMessage(sender, idUser, status, callback){
   if(sender == 'you'){
     sender = 'other';
     idUser = idUser;
-    status = 'online';
-    var otherMessageTime = setTimeout(sendMessage,1500,sender,idUser,status,callback);
+    //Cambio status del destinatario dopo 2 secondi poi dopo altri 3 parte la risposta
+    var cpuMessage = setTimeout(
+    function(){
+      status = 'Sta scrivendo...';
+      var wrapperStatus = $('.main .header__info .header__info-status');
+      wrapperStatus.text(status);
+      status = 'online';
+      var otherMessageTime = setTimeout(sendMessage,3000,sender,idUser,callback, status);
+    },2000);
   }
-
 
 }
 
